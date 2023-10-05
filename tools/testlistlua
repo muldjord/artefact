@@ -1,0 +1,28 @@
+#!/bin/bash
+
+SCRIPTDIR=`dirname $0`
+
+grep -l "function test()" *.lua > tmp
+
+echo -n "TESTFILES="
+while read LINE
+do
+		FILE=$LINE
+		NAME=`echo $FILE | cut -d'.' -f1`
+		TEST=test_$NAME
+		echo -ne "$TEST "
+done < tmp
+echo ""
+echo ""
+
+while read LINE
+do
+		FILE=$LINE
+		NAME=`echo $FILE | cut -d'.' -f1`
+		TEST=test_$NAME
+		echo "$TEST: $FILE $DEPS"
+		echo -e "\t@${SCRIPTDIR}/testlua $FILE"
+		echo ""
+done < tmp
+
+rm -f tmp

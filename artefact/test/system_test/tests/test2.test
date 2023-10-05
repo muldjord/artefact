@@ -1,0 +1,4 @@
+INPUT="queryonelm600p.xml"
+EXPECT="test2_expected.xml"
+FILTER="cat"
+TITLE="Query one data entry"

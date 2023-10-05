@@ -1,0 +1,108 @@
+#############################################################################
+# Server 
+# The user and group under which artefact will run.
+# Default is to run as current user.
+;user = "artefact"
+;group = "artefact"
+
+#############################################################################
+# Log configuration
+# logdir is the directory in which all XML transaction will be saved.
+# logformat is the format of the filename. Valid characters are:
+#  %u - Unixtimestamp of the processingtime.
+#  %s - Unixtimestamp of the sender.
+#  %i - Sender ip address.
+#  %r - Receiver ip address.
+#  %% - %
+# All filenames will be appended with an increasing number if the filename
+#  already exists.
+# All other characters will be used unmodified.
+;logdir = "/usr/local/var/lib/artefact/log"
+;logformat = "%u-%i.xml"
+# Log to syslog on host
+;syslogserver = "localhost"
+
+#############################################################################
+# Server configuration
+# port is the port on which the server is listening for queries
+;port = 11108
+
+# Maximum number of concurrent connection to the server.
+;maxconn = 42
+
+# Whether to use an ssl connection or not
+;use_ssl = true
+
+# Key and cert files
+;ssl_cert = "CERT|CERTFILEPATH"
+;ssl_key = "KEY|KEYFILEPATH"
+
+# Location of the lua interpreter/classifier handlers.
+;lua_basedir = "/usr/share/artefact"
+
+#############################################################################
+# CPR Server configuration
+# cpr_port is the port on which artefact will try to connect to the CPR
+#   server.
+# cpr_addr is the address on which artefact will try to connect to the 
+#   CPR server.
+;cpr_port = 11108
+;cpr_addr = "localhost"
+
+#############################################################################
+# Data storage configuration
+# datapath is the rootfolder of the ondisk datastorage.
+# dataformat is the format of the path and filename relative to the
+# abovementioned datapath. Valid characters are:
+#  %i - Patient unique ID.
+#  %y - Patient year of birth.
+#  %m - Patient month of birth.
+#  %d - Patient day of birth.
+#  %u - Unixtime of data production.
+#  %t - Device type.
+#  %x - Device id.
+#  %% - %
+# '/' denotes a new directory.
+# All filenames will be appended with an increasing number if the filename
+#  already exists.
+# All other characters will be used unmodified.
+;datapath = "/var/lib/artefact/data"
+;dataformat = "%y/%m/%d/%i/%u-%t"
+
+#############################################################################
+# Class definitions
+#
+
+static_classes = "cpr", "referral"
+
+pseudo_classes = "refraktometri", "all", "tonoref2", "iolmaster500", "ark700a"
+
+all {
+  name = "*"
+  classlist = "tonomertri", "keratometri", "refraktometri", "cpr",
+              "referral", "echo", "iolmaster500", "ark700a", "nt3000", 
+              "lm600p", "barcode", "visutron900plus"
+}
+
+refraktometri {
+  name = "refraktometri"
+  classlist = "subjektiv_refraktometri", "objektiv_refraktomtri"
+}
+
+tonoref2 {
+  name = "tonoref2"
+  classlist = "tonoref2_refractometer", "tonoref2_keratometer", "tonoref2_tonometer"
+}
+
+iolmaster500 {
+  name = "iolmaster500"
+  classlist = "iolmaster500_patient", "iolmaster500_keratometer", 
+              "iolmaster500_anteriorchamberdepth", "iolmaster500_iol", 
+               "iolmaster500_axiallength", "iolmaster500_iolcalculationparameter", 
+               "iolmaster500_iolcalculationresult", "iolmaster500_wtw"
+}
+
+ark700a {
+  name = "ark700a"
+  classlist = "ark700a_refractometer", "ark700a_keratometer"
+}

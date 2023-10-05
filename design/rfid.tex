@@ -1,0 +1,312 @@
+\chapter{RFID tags}
+I denne sektion beskrives tanker omkring implementation af patient og
+læge eller sygeplejerske registrering vha. RFID tags.
+
+\section{Hvad er RFID tags?}
+\begin{figure}
+\begin{center}
+\includegraphics[width=100mm]{rfid.eps}\\
+\end{center}
+\label{rfid}
+\caption{Figuren viser et diagram over sammenkoblingen af transponder,
+  antenne og computer.}
+\end{figure}
+Et RFID tag, eller en \textit{transponder} som den hedder i fagsprog,
+er et lille kredsløb indeholdene et unikt tal.\\
+Man kan bede transponderen om at sende sit tal og derved identificere
+sig selv.\\ 
+De er som oftest være bygget ind i en vandtæt kapsel, hvilket gør
+dem bemærkelsesværdigt robuste.\\
+De transpondere som beskrives her er af typen \textit{passive
+  transpondere} hvilket vil sige at transponderen selv ikke indeholder
+batteri.\\
+Denne type transponder fungerer modsat de \textit{aktive transpondere}
+(såsom Brobizz) på korte afstande, men skal tilgengæld ikke have
+udskiftet batteriet i tide og utide.\\
+Den passive transponers kredsløb er koblet til en spole, som bliver
+påvirket af et kraftigt magnetfelt når transponderen nærmer sig en
+antenne. Dette magnetfelt inducerer en strøm i spolen som er kraftig
+nok til at aktivere den interne chip, som derved kan sende sit unikke
+tal via radiobølger.\\
+Tallet kan således modtages af antennen og efterfølgende sendes til en
+computer.\\
+Selve transponderen er meget billig at producere og fåes i alverdens
+farver og former, hvoraf de mindste er på størrelse med chippen på et
+chipdankort. De koster i omegnen af 20kr. stykket.\\
+Antennerne derimod er væsentligt dyrere og fylder væsentligt mere. De
+kan som regel erhverves for omkring 1000kr. stykket og har en størelse
+som minder om en æske med tændstikker.\\
+Nogle typer transpondere kan programmeres, dvs. bruges til at lagre et
+selvvlagt tal på. Denne type transpondere er væsentligt dyrere end de
+ikke-kodebare transpondere og kræver ydermere en special antenne for
+at blive programmeret. Når de først er programmeret, kan de dog læses
+af en almindelig antenne. \\
+Der findes to typer læse antenner. Den ene type har et konstant
+magnetfelt som aktiverer transponderen når den føres ind i
+magnetfeltet, og ikke ellers. Den anden type aktiverer sit magnetfelt
+med et lille interval, hvilket bevirker at transponderen udsender sit
+tal så længe det er i nærheden af antennen. Denne type kaldes
+\textit{kontinuerlig}.
+\begin{figure}
+\begin{center}
+\includegraphics[width=60mm]{antenne_2.eps}
+\includegraphics[width=60mm]{antenne_1.eps}\\
+\end{center}
+\label{antenner}
+\caption{De to antenner. Den venstre er den kontinuerlige og den højre
+  er den ikke kontinuerlige.}
+\end{figure}
+\begin{figure}
+\begin{center}
+\includegraphics[width=60mm]{transponder_1.eps}
+\includegraphics[width=60mm]{transponder_2.eps}\\
+\end{center}
+\label{transpondere}
+\caption{De to transpondertyper. Den venstre er Key transponderen, den
+  højre er Brick transponderen med tape på undersiden.}
+\end{figure}
+
+\section{Praktiske omstændigheder omkring brugen af RFID}
+For at en måling kan foretages korrekt er det nødvendigt for systemet
+at der er tilknyttet en patient og en operatør til den givne
+lokation.\\
+Sammenknytningen skal ske ved at både operatøren og en patienten
+registrerer sig i systemet på lokationen på samme tid og derved binder
+sig sammen i de efterfølgende målinger.
+
+\subsection{Operatøren}
+Operatøren skal opbevare sin transponder på sig hele tiden mens
+systemet benyttes, og det skal derfor laves så operatøren ikke bliver
+generet af den.\\
+Når en måling skal foretages skal operatøren give sig til kende
+overfor sy\-stem\-et vha. sin transponder. Operatøren skal selv foretage
+registreringen, og det forventes at operatøren får god træning i at
+benytte systemet, idet det kommer til at blive taget i brug mange
+gange dagligt.
+
+\subsection{Patienten}
+Patient skal ligesom operatøren bære rundt på en transponder. Den skal
+være til stede fra patientens ankomst til dagens forløb er afsluttet.\\
+Idéen er at patienten ved ankomst modtager en transponder som internt
+i systemet bliver knyttet til patientens stamdata.\\
+Alimindeligvis vil det være sådan at patienten selv bærer rundt på sin
+trans\-pon\-der i lommen eller hånden, men da visse patienter kan være
+forhindrede i dette skal det også være muligt at bære den i en snor om
+halsen, håndledet eller lign.\\
+Når en måling skal foretages tænkes transponderen afleveret til
+operatøren, som skal foretage registreringen.\\
+Selve registreringen kan opfattes som kompliceret af udefrakommende og
+det kan derfor ikke forventes at patienten selv kan finde foretage
+den. Ydermere vil det være til stor gene hvis operatøren ved hver eneste
+patient skal til at bruge tid på at forklare hvordan registreringen
+foregår.
+
+\subsection{Log ind/ud}
+I forbindelse med registrering af patienten kan patientens navn optræde
+på en skærm hvilket fra operatørens side kan bidrage til den
+sædvanlige dobbelt kontrol af patientientens identitet.\\ 
+Det er vigtigt at de målte data bliver kyttet til den korrekte
+patient i databasen og det bør derfor gøres så usandsynligt som muligt
+at en uautoriseret måling foretages.\\
+Et system kan laves som holder styr på om der både er en operatør og
+en patient til stede, samt hvorvidt disse er blevet aktiverede
+indenfor en passende tidsramme, f.eks. 30 sekunder.\\
+Hvis det ikke er tilfældet er systemet i en passiv tilstand hvor det
+ikke vil modtage data.\\
+Der kan ydermere laves meget nuancerede visuelle repræsentationer af
+sy\-stem\-ets status, så der aldrig vil opstå tvivl om dette.\\
+Dette kan for eksempel gøres ved at lade displayet have en grå farve
+når det er passivt, en grøn når det er aktivt og en rød hvis der er
+sket en fejl.\\
+Et krav om bekræftelse af patientens og operatørens registrering kan
+med fordel tilføres for at opnå den ønskede sikkerhed for at
+operatøren har foretaget den nødvendige kontrol. Dette kan eventuelt
+implementeres ved hjælp af en \textit{``bekræft''} knap i nærheden af
+antennen.\\
+En registrering er aktiv så længe en ny registrering ikke er
+foretaget. En log ud knap kan introduceres, som vil efterlade systemet
+i passiv tilstand. En timeout på en registrering er ikke praktisk
+mulig idet de forskellige målinger ikke umidelbart er mulige at sætte
+en øvre tidsgrænse på.
+
+\section{Hardware scenarier}
+I de følgende scenarier bliver følgende enheder undersøgt: key
+transponder og brick transponder (begge passive read-only), samt en
+60cm og en 20cm antenne, hvoraf 20cm antennen er kontinuerlig.\\
+Under beskrivelserne vil begrebet \textit{agent} blive benyttet om en
+person som bærer på en transponder og dermed ønsker at betjene
+systemet enten som operatør eller som patient.
+
+\subsection{Scenarie 1}
+\textbf{Hardware:} Key transponder og antenne med en
+rækkevidde på 60cm.\\
+
+\noindent\textbf{Beskrivelse:} Dette scenarie udarter sig ved at der
+er lang aktiveringsafstand mellem transponderen og antennen. Agenten
+har transponderen i en nøglering i lommen eller lign. og bliver
+automatisk registreret når agenten træder indenfor et aktiveringfelt,
+som er placeret sådan at man naturligt befinder sig i det når man skal
+betjene udstyret eller måles.\\
+
+\noindent\textbf{Fordele:} Agenten kan ikke glemme at logge ind, fordi
+agenten ødvendigvis må befinde sig indenfor aktiveringsområdet for at
+en måling kan ofretages.\\
+Der skal ikke fortages nogen handling i forbindelse med login og
+proceduren er derfor så simpel og hurtig som det er muligt (med mindre
+bekræftelse tilføjes).\\
+
+\noindent\textbf{Ulemper:} Hvis en anden agent bevæger sig indenfor
+aktiveringsområdet under en måling, vil systemet tro at den
+oprindelige agent er blevet udskiftet, dette kan dog håndteres i
+softwaren.\\
+Mange apparattyper egner sig ikke til denne type registrering idet det
+er svært eller umuligt at definere aktiveringsfeltet.
+
+\subsection{Scenarie 2}
+\textbf{Hardware:} Brick transponder og antenne med en
+rækkevidde på 60cm.\\
+
+\noindent\textbf{Beskrivelse:} I dette scenarie benyttes samme idé som
+i scenarie 1, bortset fra at transponderen er udskiftet med en brick
+transponder som for eksempel kan være monteret på bagsiden af
+navneskiltet (eller noget tilsvarende som agenten altid har på sig).\\
+
+\noindent\textbf{Fordele:} Alle fordele fra scenarie 1 er også gældene
+her, men en ændring er nu at det er nemmere at huske transponderen,
+idet den kan placeres på noget som agenten altid har med sig.\\
+
+\noindent\textbf{Ulemper:} Samme ulemper som ved scenarie 1.\\
+Det kan være svært at finde noget egnet at montere transponderen på.
+
+\subsection{Scenarie 3}
+\textbf{Hardware:} Key transponder og antenne med en rækkevidde på
+20cm.\\
+
+\noindent\textbf{Beskrivelse:} I dette scenarie benyttes en
+kortrækkende antenne og en nøg\-le\-rings\-transponder. Transponderen
+skal føres tæt forbi aktiveringsplade for at blive registreret.\\
+Antennens mulighed for at læse kontinuerligt benyttes ikke.\\
+Transponderen befinder sig i et nøglebundt i lommen på agenten eller
+lign.\\
+
+\noindent\textbf{Fordele:} Systemet aktiveres ikke fejlagtigt ved en
+forbipasserende agent.\\
+
+\noindent\textbf{Ulemper:} Der kræves en del interaktion, og det er
+nemmere at komme til at glemme at logge ind.
+
+\subsection{Scenarie 4}
+\textbf{Hardware:} Key transponder og kontinuerlig antenne med en
+rækkevidde på 20cm.\\
+
+\noindent\textbf{Beskrivelse:} I dette scenare benyttes samme hardware
+som i scenarie 3, men denne gang udnyttes antennens mulighed for at
+læse kontinuerligt.\\
+Ved login placerer agenten transponderen i nærheden af antennen og
+lader den ligge der så længe apparatet benyttes.\\
+
+\noindent\textbf{Fordele:} Systemet aktiveres ikke fejlagtigt ved en
+forbipasserende agent.\\
+Der produceres ekstra informationer om målingen, eftersom vi ikke blot
+ved hvor\-når målingen startes foretaget (login) men også hvornår den
+er slut (når transponderen fjernes fra antennen).\\
+Log out problemet er således løst.\\
+
+\noindent\textbf{Ulemper:} Der kræves en del interaktion, og det er
+nemt at komme til at glemme at logge ind.\\
+Ydermere kan agenten helt glemme at tage transponderen med sig når
+målingen er færdig, hvilket vil give anledning til forvirring.
+
+\subsection{Scenarie 5}
+\textbf{Hardware:} Brick transponder og kontinuerlig antenne med en
+rækkevidde på 20cm.\\
+
+\noindent\textbf{Beskrivelse:} Samme scenarie som scenarie 4, bortset
+fra at transponderen nu er monteret på noget som agenten altid har med
+sig, men samtidig er villig til at lægge fra sig.\\
+
+\noindent\textbf{Fordele:} Samme fordele som ved scenarie 4, bortset
+fra at det nu er nemmere at huske at logge ind, fordi transponderen er
+monteret på noget som er mere oplagt at lægge fra sig ved antennen.\\
+
+\noindent\textbf{Ulemper:} Samme fordele som ved scenarie 4, bortset
+fra det gerne skulle være nemmere at huske at logge ind og nemmere at
+huske at tage transponderen med sig ved endt måling.\\
+Det kan være svært at finde et egnet emne at montere tagget på.
+
+\section{Sikkerhed}
+Sikkerheden forbundet med RFID systemet skal også tages i
+betragtning.\\
+En ondsindet person kan let få fingre i det tal som transponderen
+indeholder, idet han blot kan opstille en antenne tilpads tæt på den
+rigtige antenne (almindeligvis er 1m tilstrækkelig tæt på), som kan
+læse tallet.\\
+Med tallet i hånden kan man manuelt kode en anden transponder med
+samme tal, hvorved den oprindelige transponder er blevet kopieret.\\
+I vores scenarier er det i patientens tilfælde et spørgsmål om at det
+ikke må kunne lade sig gøre at aflure patientens informationer ved at
+læse det udleverede tag.\\
+Dette er håndteret ved at det nummer som ligger på tagget ikke har
+nogen direkte forbindelse med patientens stamdata, idet disse kun
+ligger på serveren. Det er således nødvendigt for en ondsindet
+person ikke blot at tilskaffe sig adgang til patientens tag, men
+også til serveren indeholdene stamdataene.\\
+Den ondsindede person har således ikke umiddelbart noget ud af at
+kopiere patientens transponder, idet den udløber efter et døgn, og det
+eneste han kan opnå er at udgive sig overfor systemet for at være den
+pågældene patient indenfor det døgn.\\
+Dette vil i værste fald give anledning til fejlmålinger som, når det
+opdages, er nemme af fjerne fra systemet (data ovreskrives aldrig, men
+tilføjes). Samtidig vil det være forholdsvis nemt for en operatør at
+opdage.\\
+Det er straks mere interressant for den ondsindede person at
+kopiere operatørens transponder, hvilket umiddelbart er lige så nemt
+som at kopiere patientens.\\
+Med en operatørtransponder i hånden kan den ondsindede person
+udgive sig at være operatør overfor systemet og dermed aktivere
+uautoriserede målinger.\\
+Sådanne uautoriserede målinger er dog nemme at opdage og eftersom der
+ikke slettes eller overskrives data kan de originale data let genskabes.
+%Ved en udvidelse af systemet til at håndtere
+%reelt login til f.eks. PC-Praxis vil det have langt videre rækkende
+%konsekvenser, idet det vil blotte patientfølsomme data.\\
+%Alt dette kan imidlertid modværges ved at implementere en såkaldt
+%onetimepad i operatørens tag, som gør det umuligt at kopiere ved blot
+%at lytte i nærheden af antennen.\\
+Ved ydermere at indføre en fornuftig politik omkring indrapportering
+af stjålne eller mistede transpondere, vil man gøre det meget svært
+for en ondsindet person at få fat i valide data, idet en forlagt
+transponders tal vil bliver erklæret ugyldigt forholdsvis hurtigt.
+
+\section{Eksperimenter}
+Vi producerede et praktisk testeksempel for at belyse nogle af
+uhensigtsmæssighederne i optillingen.\\
+Til formålet blev udviklet en mockup af login softwaren som blev sta
+til at køre på en touchscreen.\\
+Forsøget blev udført i refraktiv kirurgisk afsnit. Operatøren var Toni
+Hansen.\\
+Følgende resultater kom ud af eksperimentet:
+\begin{itemize}
+\item{Operatøren puttede transponderen i sin kalender som var
+  lokalisret i brystlommen. Ved scanning blev denne således vist til
+  antennen.}
+\item{Operatøren havde brugt RFID teknologi tidligere i forbindelse
+  med undergrunds bane rejser.}
+\item{Bekræftelsen i GUIet skal være meget tydelig (specielt
+  tydeligere end på vores mockup)}
+\item{Idet patienten blev scannet forholdsvis lang tid inden
+  operatøren, skal der være en lang timeout.}
+\item{Det afprøvede ``gå forbi og den aktiveres'' scenarie virkede
+  ikke. Antennen var ikke kraftig nok.}
+\item{Man skal ``vise'' transponderen til antennen, ikke køre den
+  forbi som man ville gøre det i en stregkodescanner i et supermarked.}
+\item{For at undgå dobbelt login kræves det at man logger ud hvis man
+  allerede er logget ind et andet sted (til gene og derfor kan de
+  måske huske det!)}
+\item{En patient for oftest blot foretaget en enkelt måling, sjældnere
+  sker det at der bliver foretaget 2 eller 3 (NOTE: Specifikt for
+  refraktiv).}
+\item{Antennen skal monteres på træ eller lign. En metalplade (gælder
+  også aluminium) forstyrrer signalet så meget at systemet nærmest er
+  ubrugeligt.}
+\end{itemize}

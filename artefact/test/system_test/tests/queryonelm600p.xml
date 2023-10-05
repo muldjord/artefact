@@ -1,0 +1,12 @@
+<artefact xmlns="http://www.aasimon.org/pentominos"
+          xmlns:pentominos="http://www.aasimon.org/pentominos"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://www.aasimon.org/pentominos schema.xsd">
+  <pentominos:entry patientid="0000000000"
+                    pretend="false"
+                    timestamp="1352462171"/>
+  <pentominos:query id="0"
+                    class="lm600p"
+                    filter="*"/>
+</artefact>
+

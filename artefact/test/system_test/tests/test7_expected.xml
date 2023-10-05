@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<results>
+  <result id="0" errcode="0" errstring="Data Success" class="status"
+          deviceid="" devicetype="" timestamp="">
+  </result>
+  <result id="1" errcode="0" errstring="Data Success" class="status"
+          deviceid="" devicetype="" timestamp="">
+  </result>
+  <result id="2" errcode="0" errstring="" class="alcon"
+          deviceid="CHANGE_ME" devicetype="barcode" timestamp="">
+    <group name="barcode">
+      <value name="vendor">Alcon</value>
+      <value name="type">alcon</value>
+      <value name="rawdata">+H530SA60AT120P16
++1124311495700665</value>
+      <value name="serial">+1124311495700665</value>
+      <value name="power">12.0</value>
+      <value name="model">SA60AT</value>
+    </group>
+  </result>
+</results>

@@ -1,0 +1,4 @@
+INPUT="insertandquery.xml"
+EXPECT="test5_expected.xml"
+FILTER="cat"
+TITLE="Insert and query in same request"

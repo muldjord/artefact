@@ -1,0 +1,7 @@
+*.aux
+*.toc
+designdokument.dvi
+designdokument.log
+designdokument.pdf
+designdokument.ps
+*.eps

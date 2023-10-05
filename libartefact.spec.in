@@ -1,0 +1,41 @@
+Summary: Pentominos Artefact Library 
+Name: libartefact
+Version: @VERSION@
+Release: 1
+License: GPL+
+Group: Library 
+Source: artefact-%{version}.tar.gz
+URL: http://no-address
+BuildRoot: %{_topdir}/BUILD/%{name}-%{version}-%{release}
+
+%description
+%{summary}
+
+%prep
+#%setup -q
+rm -rf %{_builddir}/*
+tar zxvf %{_sourcedir}/%{SOURCEURL0}
+mv artefact-%{version}/* %{_builddir}
+
+%build
+./configure --prefix= --exec-prefix=/usr --with-debug --with-libartefact
+make
+
+%install
+%make_install
+#rm -r %{buildroot}/share
+#mv %{buildroot}/etc/init.d/pxregd.in %{buildroot}/etc/init.d/pxregd
+
+%files
+/include/libartefact.h
+/include/libartefactstatus.h
+/usr/lib/libartefact.a
+/usr/lib/libartefact.la
+/usr/lib/libartefact.so
+/usr/lib/libartefact.so.0
+/usr/lib/libartefact.so.0.0.0
+/usr/lib/pkgconfig/libartefact.pc
+
+
+
+%changelog

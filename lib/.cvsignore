@@ -1,0 +1,14 @@
+Makefile.in
+Makefile
+*.lo
+libpentominos.la
+.libs
+.deps
+test_*
+test_*.log
+*.loT
+y.tab.h
+y.tab.cc
+y.output
+lex.yy.cc
+

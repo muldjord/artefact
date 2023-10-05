@@ -1,0 +1,4 @@
+INPUT="queryall.xml"
+EXPECT="test6b_expected.xml"
+FILTER="cat"
+TITLE="Check that pretend in test6 did not insert data"

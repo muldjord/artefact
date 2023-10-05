@@ -1,0 +1,46 @@
+Summary: Pentominos Artefact Data Server
+Name: artefact 
+Version: @VERSION@
+Release: 3 
+License: GPL+
+Group: Service 
+Source: artefact-%{version}.tar.gz
+URL: http://no-address
+BuildRoot: %{_topdir}/BUILD/%{name}-%{version}-%{release}
+Requires: artefact-lua
+
+%description
+%{summary}
+
+%prep
+%setup -q
+#rm -rf %{_builddir}/*
+#tar zxvf %{_sourcedir}/%{SOURCEURL0}
+#mv pentominos-%{version}/* %{_builddir}
+
+%build
+./configure --prefix= --exec-prefix=/usr --with-debug --with-artefact
+make
+
+%install
+%make_install
+mkdir -p %{buildroot}/var/lib/artefact/data
+
+%files
+/etc/artefact/artefact.conf.example
+/etc/artefact/artefact.psql
+/share/man/man5/artefact.5
+/share/man/man5/artefact.conf.5
+/usr/bin/artefact
+/var/lib/artefact
+%attr(755, root, root) /etc/init.d/artefact
+
+%post
+echo "=================================================================="
+echo ""
+echo "Check URL for configuration guide"
+echo ""
+echo "=================================================================="
+
+
+%changelog

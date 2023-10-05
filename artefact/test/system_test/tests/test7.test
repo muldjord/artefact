@@ -1,0 +1,4 @@
+INPUT="insertlinses.xml"
+EXPECT="test7_expected.xml"
+FILTER="cat"
+TITLE="Checking that different data entries do not get mixed when querying with filter latest"

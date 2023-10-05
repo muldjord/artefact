@@ -1,0 +1,262 @@
+\chapter{Udstyr}
+
+\fixme{introduktion/indledning}
+
+
+\fixme{Læg generelt vægt på patientens forløb også, istedet for kun lægens}
+%Der er to typer udstyr i vores system, det som producerer data, og det
+%som transporterer og lagrer data.\\
+%Den første type har vi meget lidt eller slet ingen kontrol over, men
+%må her læne os op ad de specifikationer som producenterne stiller
+%til rådighed.
+\section{Apparatur}
+\fixme{Tabellen skal krydcheckes mht. apparatnavne}
+\begin{figure}
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+Apparat                  & Push & Pull & Manuel & CPR-Aware\\
+\hline
+\hline
+Lensometer               & X    &      & X      &      \\\hline
+Keratometer              &      & X    & X      &      \\\hline
+Tonometer                &      & X    & X      &      \\\hline
+Retinometer              & X    &      & X      &      \\\hline
+Phoropter                & X    &      & X      &      \\\hline
+Spaltelampe              & G    &      &        &      \\\hline
+Diktafon                 &      & X    &        &      \\\hline
+ACMMaster                & S    &      &        & X    \\\hline
+IOLMaster                & X    &      &        & X    \\\hline
+Ophthasonic              &      &      & X      &      \\\hline
+A4 Scanner               & X    & X    &        &      \\\hline
+%SortSmartKasse           & ?    & ?    &        &      \\\hline
+Atlas                    & S    & ?    &        & X    \\\hline
+Pupilometer              & S    &      &        & X    \\\hline
+Wasca                    & S    &      &        & ?    \\\hline
+Keratometer NRK8000      & X    &      &        & X    \\\hline
+Digatal Foto Kamera      & ?    & ?    &        &      \\\hline
+Ultrasound Biomicroscope &      &      &        &      \\\hline
+PC-Praxis                & S    & S    &        & X    \\\hline
+Field Analyzer           & X    &      &        & X    \\\hline
+Laser 'argon'            & ?    & ?    &        &      \\\hline
+SmartLens                & ?    & ?    &        &      \\\hline
+Stratus OCT              & S    &      &        & X    \\\hline
+SLO101                   & G    &      &        &      \\\hline
+Fundus Kamera            &      & X    &        &      \\\hline
+Barcode reader           &      & X    &        & X    \\\hline
+OP Microskop             &      & G    &        & X    \\\hline
+Alcon Infinite           & ?    & ?    &        &      \\\hline
+YAG laser OP3            & ?    & ?    &        &      \\\hline
+Ophthalas 532 eyelite    & ?    & ?    &        &      \\\hline
+Cryostar                 &      &      &        &      \\\hline
+Mel 80                   & ?    & ?    &        & ?    \\\hline
+LSK Evolution2           &      &      &        &      \\\hline
+AL100 Biometer           & ?    & ?    &        &      \\\hline
+Blodtryksmåler           & ?    & ?    & ?      & ?    \\\hline
+\end{tabular}
+\end{center}
+\label{app}
+\caption{Tabellen viser alle de apparater på afdelingen som er relevante i
+	forbindelse med opkobling.'X' betyder, at denne egenskab er til
+	stede. 'G' betyder, at denne egenskab er til stede vha. af et
+	grabber program (a la PC-Grab). 'S'	betyder, at der kan uploades
+	filer til et samba drev, og '?' betyder, at det ikke vides om denne
+	egenskab er til stede.}
+\end{figure}
+
+På figur \ref{app} ses en liste over alle de apparater på afdeligen, som er
+relevante i opkoblingsprocessen.\\
+Apparatsøjlen beskriver hvilket apparat, der er tale om, Pushsøjlen
+fortæller om apparatet kan pushe data ud når det produceres, Pullsøjlen
+fortæller om man udefra kan spørge apparatet om dets data for at få
+dem, Manuelsøjlen fortæller om apparatet kan printe en lap papir ud med dets
+data, og CPR-Awaresøjlen fortæller om apparatet har nogen ide om, hvilken
+patient det er i gang med at producere data til.
+\fixme{Der mangler et afsnit som binder apparater og arkitektur sammen.}
+
+\section{Computere}
+Der findes fire typer computere i systemet:
+\begin{enumerate}
+\item Serveren
+\item Soekris bokse \fixme{Find på nogt abstrakt at kalde
+  Soekrisboksene på dette stadie}
+\item Tykke klienter (f.eks MIaV og Fundus)
+\item Klient maskiner
+\end{enumerate}
+\fixme{Uddyb}
+\noindent Serveren er der kun een af og den binder det hele sammen via
+to netværk. Soekris boksene er der mange af, og de er koblet op mod
+serveren for at levere data til den (read-append). De tykke klienter har umiddelbart
+samme rolle som Soekrisboksene, men indeholder væsentligt mere
+kompliceret software, som i sig selv laver databehandling udover
+leveringen af data til serveren (read-append). Klienterne er alle de maskiner på
+afdelingen, som har behov for at udtrække data fra serveren (read-only).
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=120mm]{udstyr.eps}\\
+\end{center}
+\label{udstyr}
+\caption{Computerne i projektet. Pilene indikerer datatransport. De
+	stiplede bobler indikerer de isolerede netværk.}
+\end{figure}
+
+\section{Lokationer}
+\fixme{Mere om patienterne}
+Der vil blive defineret nogle logistiske lokationer, som har en
+arbejdsmæssig sammenhæng. Det kan være et lokale, eller en afgrænset
+samling af maskiner og/eller apparatur.\\
+Hver lokation bliver knyttet sammen af en central
+CPR-indtastningsmekanisme, som har til formål at levere det CPR-nummer,
+som dataene fra apparaturet på lokationen skal lagres under.\\
+Flere lokationer er således selvdefinerende (f.eks en operationsstue),
+mens andre er mere spidsfindige at definere (f.eks det store
+undersøgelsesrum ved siden af kateraktsporene).\\
+Der skal så vidt muligt sørges for, at to patienter ikke kan
+behandles i den samme lokation samtidig, hvilket effektivt betyder, at
+vi i mange tilfælde er nødt til at definere en lokation som et
+enkelt apparat.\\
+
+\section{Brugerregistrering}
+For at kunne registrere hvilken bruger, som har til hensigt at foretage
+en måling, er det nødvendigt med en form for registrering før
+begyndelsen af målingerne.\\
+Dette kan gøres vha. af gammeldags login/password, hvilket er
+besværligt at udføre, specielt hvis det skal ske mange gange
+dagligt. Endvidere kan det ske vha. af en form for stregkode eller
+magnetkort, som brugerne skal have på sig, mens de befinder sig på
+afdelingen. Disse er hurtigere at benytte, men har den ulempe, at de er
+skrøbelige, specielt ved hyppigt brug. Den sidste og umiddelbart
+bedste løsning er indførelsen af såkaldte RFID tags, som fungerer på den måde,
+at brugeren skal vifte tagget (som kan have vilkårlig udformning og
+størrelse) foran en plade. De er meget billige at anskaffe og er meget
+robuste, kan sågar tåle grundig vask med sprit eller en tur i 
+tørretumbleren, hvilket løser en del af de hygiejneproblemer som måtte
+forekomme i de to andre løsninger.\\
+\fixme{Duer ikke med \LaTeX{} handsker - desuden kræves registrering af
+  personfølsom data for lægerne = skidt}
+Fingeraftrykslæser har også været på tale, men eftersom denne
+teknologi giver en række hygiejneproblemer, samt at den endnu ikke er
+100\% pålidelig, er den ikke anbefalelsesværdig til dette projekt.\\
+For at kunne indlæse og sende brugerkoden til dataserveren skal
+flg. udstyr således opstilles på hver lokation:
+\begin{itemize}
+\item RFID læser.
+\item Soekris boks med PoE udstyr.% adapter (Power over Ethernet).
+\end{itemize}
+Det overvejes at alle brugerne skal have et kort eller lignende med
+indbygget RFID tag, som de skal indsætte i en sprække og lade sidde i
+denne sprække, så længe undersøgelsen eller operationen er i
+gang. Systemet kan på denne måde hele tiden vide, hvilken bruger, der betjener
+systemet, og samtidig slipper man for problemer som opstår fordi en bruger
+glemmer at aktiverer sit tag (logge ind) i systemet inden en
+undersøgelse, hvilket vil give nogle problemer som ikke er mulige at
+opdage ved systemcheck. Hvis en bruger har glemt sit tag ved en
+tidligere undersøgelse, kan den næste ikke foretages, hvorved brugeren
+tvinges til at holde sit tag på sig under hele arbejdsdagen.\\
+Hvis en bruger har mistet sit tag, skal der laves fallbackløsninger, så
+det er muligt at få et midlertidigt tag, som kan redirigere systemet til den
+pågældende bruger internt.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=60mm]{soekris_front.eps}
+\includegraphics[width=60mm]{soekris_back.eps}\\
+\end{center}
+\label{soekris}
+\caption{Soekrisboksen set forfra og bagfra.}
+\end{figure}
+
+\section{CPR-indtastning og dataopsamling}
+For at kunne levere et CPR-nummer skal flg. udstyr stilles til
+rådighed for hver lokation:
+\begin{itemize}
+\item Nummerisk tastatur.
+\item Sygesikringskortlæser.
+\item Soekris boks (gerne fysisk den samme, som den der skal læse RFID tags).
+\end{itemize}
+Soekris boksen skal via serielkabler, USBkabler eller lignende være koblet fysisk til
+alle apparaterne i lokationen og derved fungere som opsamlingspunkt
+for dataene. Når et CPR-nummer indtastes (eller magnetkort læses)
+bliver det knyttet til det givne lokationsnummer (her kan lokalenummer
++ eventuelt underkode benyttes). Soekris boksen opsamler dataene og
+videresender dem råt til dataserveren sammen med
+lokationsnummeret. Dataserveren er samtidig blevet gjort opmærksom på
+hvilket CPR-nummer, som hører til det pågældende lokationsnummer, og ved
+derfor, hvor i databasen den skal lagre dataene.\\
+Dataene bliver på intet tidspunkt fortolket -- dette sker først når
+dataene skal læses ud igen.\\
+Der er intet til hinder for at der kobles flere Soekris bokse på en
+lokation, idet CPR-nummeret ikke er boks specifikt, men lagres globalt
+på dataserveren.\\
+Hvis en patient har glemt sit sygesikringbevis eller magnetstriben er
+beskadiget er det muligt at indtaste CPR-nummeret manuelt, men
+eftersom dette er besværligt og potentielt fejlproducerende (der tastes
+forkert), skal der ved ankomsten laves et system, hvor patienten får
+et 'erstatnings sygesikringsbevis' som indeholder en speciel kode,
+som i systemet sættes til at referere til et konkret CPR-nummer. Det
+samme system kan bruges ved patienter uden CPR-nummer, eller ved
+patienter med erstatningsnumre.\\
+En funktion i administrationssoftwaren skal, for at få fuldt udbytte
+af denne funktionalitet, kunne udskifte et givent CPR-nummer med et
+andet (F.eks. hvis en nyfødt behandles, før der er tildelt et
+CPR-nummer. Her vil undersøgelsen foregå under et erstatsningsnummer,
+men en uge senere skal de målte data flyttes til det faktiske
+CPR-nummer, når den nyfødte har modtaget dette.).
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=80mm]{cpr_tastatur.eps}\\
+\end{center}
+\label{cpr}
+\caption{CPR tastatur med indbygget magnetkortlæser og display.}
+\end{figure}
+
+\section{Dataudlæsning}
+Det lagrede data er gemt råt med henblik på at bevare kontinuiteten i
+dem (hvis vi beslutter, at vi vil gemme en vis delmængde af dataene,
+kan vi en dag få brug for mere - på denne måde lagres alting altid).\\
+Når en applikation ønsker at bruge data fra et apparat, kontakter det
+dataserveren med et CPR-nummer og en apparatkode, samt en
+formateringsstreng. Dataserveren kan nu læse de rå data fra databasen
+og lave en fortolkning, som stemmer overens med den formateringsstreng,
+som klienten har vedhæftet forespørgslen. Herefter kan dataserveren
+svare på forespørgslen på en måde, som er veldefineret for
+klienten. Disse formateringsstrenge specificerer vi dynamisk,
+efterhånden som nyt apparatur og nye klienter tilknyttes systemet.
+
+\section{Implementation}
+Grundet den dynamiske og skal\'{e}rbare opbygning af systemet kan vi
+påbegynde tilslutningen og brugen allerede når CPR-udstyret er
+lavet.\\
+Soekris boksene skal have ens konfiguration så man nemt og hurtigt kan
+skifte en defekt boks ud med en anden, uden tab af funktionalitet.\\
+Ydermere skal deres filsystem opbevares centralt, eventuelt på
+dataserveren, så opdateringer af software og lignende kan ske centralt og
+ikke pr. boks.\\
+Dette vil selvfølgelig medføre \textit{single point of failure} idet alle boksene vil
+være inaktive ved en fejl på dataserveren. Men eftersom Soekris
+boksene er afhængige af dataserveren for at kunne sende data, ændrer
+det ikke noget, hvis de selv opbevarede deres filsystemer, idet de stadig
+ikke ville kunne sende data (og dermed fungere korrekt), hvis
+dataserveren var nede.
+
+\section{Bagudkompatibilitet}
+Da der findes en lang række systemer på afdelingen, som kommer til at
+være i brug længe efter dette system bliver sat i drift, er det
+vigtigt, at det nye system er i stand til at samarbejde med de
+eksisterende, uden at der gåes på kompromis med funktionalitet og
+design af det nye system.\\
+Konkret drejer det sig om PC-Praxis og registrering af måledata, samt
+arkivering af billeder til senere visning i PC-Show.\\
+Det påtænkes at lave et VFS-modul til sambaserveren, som kan
+registrere data korrekt til senere læsning i PC-Praxis. Det fungerer
+på den måde at alle kald til sambaserveren hookes og overrides af det
+som dikteres af VFS modulet, hvilket sørger for at alle filoverførsler
+kan laves indirekte i en database eller i en filstruktur, som vi har
+fuld kontrol over. VFS modulet skal således til en vis grad oversætte
+PC-Praxis journal requests til faktiske databaseopslag.\\
+Hvorvidt denne strategi vil virke i praksis vil vise sig efter en række
+praktiske afprøvninger.
+
+\fixme{afrunding/konklusion}

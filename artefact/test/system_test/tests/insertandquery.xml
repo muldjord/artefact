@@ -1,0 +1,28 @@
+<artefact xmlns="http://www.aasimon.org/pentominos"
+          xmlns:pentominos="http://www.aasimon.org/pentominos"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://www.aasimon.org/pentominos schema.xsd">
+  <pentominos:entry patientid="0000000000"
+                    pretend="false"
+                    timestamp="1352462171"/>
+  <pentominos:data id="0"
+                   operator="none"
+                   device_type="lm600p"
+                   device_id="testid"
+                   timestamp="1352462171"
+                   location="testlocation"
+                   encoding="base64">AURMTQJJRE5JREVLL0xNLTYwMFAXIFItMDYuMDArMDAuMDAwMDAXUFIwMC4yNUkXUFIwMS4wMEQXIEwtMDYuMDArMDAuMDAwMDAXUEwwNC4wME8XUEwwMS4wMEQXBA==
+  </pentominos:data>
+  <pentominos:data id="1"
+                   operator="none"
+                   device_type="tonoref2"
+                   device_id="testid"
+                   timestamp="1352462171"
+                   location="testlocation"
+                   encoding="base64">AURSTQJJRE5JREVLL1RPTk9SRUYyF05PMDQ0MhdEQTIwMTMuMDEuMTEuMTM6MDkXVkQxMi4wMBdXRDQwF09MKzAxLjc1LTAyLjAwMDYzF09SLTAwLjUwLTAzLjAwMDg5F1BENjM/Pz8/Pz8XAURLTQIgTDA4LjE4MDcuODQwNTkwOC4wMRcgUjA4LjIyMDcuNzgwOTkwOC4wMBcBRE5UAiBMMDMgICAgMTgvMi40ICAgICAxNy8yLjMgICAgIDE4LzIuNCAgQVYxNy43LzIuMzcXIFIwMyAgICAxOC8yLjQgICAgICAxNy8yLjMgICAgICAxNy8yLjMgICBBVjE3LjMvMi4zMxcE
+  </pentominos:data>
+  <pentominos:query id="2"
+                    class="*"
+                    filter="*"/>
+</artefact>
+

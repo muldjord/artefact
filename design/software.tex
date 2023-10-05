@@ -1,0 +1,117 @@
+\chapter{Software}
+Der er i udgangspunkt tre software opgaver som skal løses, samt et modul
+pr. apparattype der skal kobles op.\\
+De tre er:
+\begin{itemize}
+\item Dataserveren.
+\item Soekris boksens software (data indsamling)
+\item Klient software (eg. udvidelser til KatBase, PC-Show o. lign.)
+\end{itemize}
+
+\section{Overordnet software struktur}
+\subsection{Dataserveren}
+Dataserveren er den centrale applikation, som kun skal køre på \'{e}n
+maskine (serveren), men til gengæld have en meget høj tilgængelighed,
+idet den er single point of faliure.\\
+Den har tre funktioner:
+\begin{itemize}
+\item Modtagelse af CPR-numre og data fra Soekris boksene.
+\item Kommunikation med databasen (PostgreSQL eller lignende)
+\item Besvarelse af forespørgsler fra klienterne, derunder
+	parsning af rådata.
+\end{itemize}
+De to øverste opgaver kan laves generisk, idet vi på disse niveauer
+ikke skelner mellem data fra de forskellige apparater.\\
+Det sidste punkt kan laves generisk, for hele processen til og med
+fortolkningen af dataene. Der skal således skrives et modul
+pr. klienttype samt pr. apparat/data type.\\
+Det tænkes udviklet på en måde, så modulerne let kan tilføjes
+efterhånden som der bliver koblet mere udstyr på, uden at skulle f.eks
+genstarte serveren.
+
+\begin{center}
+\includegraphics[width=120mm]{software.eps}\\
+\textit{Figuren viser sammenhængen mellem apparater, maskiner, moduler
+og datatransport.}
+\end{center}
+
+\subsection{Dataindsamling}
+Soekris boksens primære software skal i udgangspunkt kunne to ting:
+Hive data ud fra et apparat (pull) og vente på data fra et apparat
+(push).\\
+Disse to opgaver skal fungere vha. af moduler, idet det skal gøres
+forskelligt for hver apparattype, der er på afdelingen. Ligesom på
+serveren tænkes det udvilket, så det ikke kræver genstart eller
+genkompilering af alle applikationerne for at aktivere et nyt modul
+(dog skal de maskiner, som skal bruge det nye modul, nok genstartes).\\
+Når en klump data er modtaget fra et apparat skal dette sendes til
+dataserveren, sammen med et prekonfigureret lokationsnummer (vi
+overvejer at bruge IP-adresserne for at undgå en divergens i boksenes
+konfiguration).
+
+\subsection{Klienterne}
+Hvad præcis der skal laves på klient området vides endnu ikke, men der
+er pt. planer om at udvide KatBase og omskrive PC-Show til brug af det
+nye system.
+%På sigt kan det tænkes at PC-Praxis skal følge samme 
+%skæbne, men det afhænger af en del andre faktorer.\\
+Eftersom vi selv har produceret det meste af softwaren
+burde det være muligt at inddrage alle de klienter, som findes på
+afdelingen i systemet.
+
+\section{Implementation}
+\subsection{Modulerne}
+For at opnå højest mulig generalitet og fleksibilitet overvejes brugen
+af et scriptsprog, som compiles og køres på runtime. Til rådighed for
+dette scriptsprog skal være en række kald til hardwaren på et lavere
+niveau, som giver mulighed for at sende og modtage data fra seriel-
+eller USBporten.\\
+Et konkret bud på et scriptsprog som opfylder de ovennævnte krav er
+LUA (\verb|http://www.lua.org|).
+
+\subsection{Netværksprotokoller}
+Der kommer primært to typer netværkskommunikation på tale:
+Kommunikation mellem Soekris boksene og dataserveren, og
+kommunikation mellem dataserveren og klienterne (forespørgsler).\\
+Derudover skal systemet integreres med den eksisterende CPR-database
+til opslag af patientnavne på baggrund af indtastede CPR-numre.\\
+
+Kommunikationen mellem en Soekrisboks og dataserveren skal indeholde
+Soekrisboksens lokationsnummer, en kode som beskriver apparatkilden og
+en klump rå data.\\
+
+Når en transmission er afsendt fra Soekrisboksen, skal serveren svare
+med en statuskode, sammen med en status besked, som kan skrives i
+loggen på den pågældene Soekris boks, eller udskrives på et
+display. Dette kan f.eks. være navnet på patienten med det CPR-nummer,
+som Soekrisboksen har sendt til serveren, navnet på linsen med den
+stregkode, som er afsendt, eller lignende tekst, som kan benyttes af
+brugeren til at verificere det afsendte data. Ved fejl kan teksten med
+fordel bruges til at orientere om fejlens art, f.eks. ``Ugyldigt
+CPR-nummer.'', eller ``Linsen kunne ikke findes i listen over kendte
+linsetyper.''.\\
+
+En klients forespørgsel skal indeholde det CPR-nummer, der forespørges
+på, den apparatkode der forespørges på, samt en kode eller
+formateringsstreng, som beskriver hvordan klienten ønsker at modtage
+sit svar.\\
+
+Svaret fra dataserveren til klienten skal indeholde et tidsstempel, som
+beskriver, hvornår dataene er registrerede, en fejlkode og streng på
+lignende vis som ved svar fra dataserveren til Soekrisboksene, og til
+sidst en feltopdelt svarblok, som indeholder de data, som klienten har
+forespurgt på, formateret efter den vedhæftede formateringsstreng.\\
+
+Al kommunikationen er blokopdelt og varierende i længde og
+indhold. Det kræves at protokollen er meget fleksibel og let at parse,
+hvilket alt sammen peger i retning af XML, idet det er godt til
+blokopdelt data af varierende størrelse og indhold (det er
+selvbeskrivende), og er samtidig et nemt format at håndtere ved
+parsning, idet der findes en lang række gode værktøjer til at hjælpe
+med netop dette.\\
+
+Kommunikationen mellem dataserveren og alle eksterne servere (SQL, Samba,
+CPR, Det Grønne System, osv.) vil foregå via de allerede definerede
+protokoller. Konceptuelt er det kun dataserveren, som skal kende til
+alle disse, og man kan således implementere alle eksterne forespørgsler
+igennem dataserveren, med henblik på udfasning af gamle systemer.

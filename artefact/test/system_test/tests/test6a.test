@@ -1,0 +1,4 @@
+INPUT="pretend.xml"
+EXPECT="test6a_expected.xml"
+FILTER="cat"
+TITLE="Pretend insert data and query"

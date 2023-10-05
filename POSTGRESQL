@@ -1,0 +1,6 @@
+The tables in the database must be created like this:
+
+drop table patient;
+drop table data;
+create table patient (cpr varchar(255), uid varchar(255));
+create table data (uid varchar(255), device_type varchar(255), device_id varchar(255), timestamp varchar(32), location varchar(255), filename varchar(255), length varchar(255));

@@ -1,0 +1,14 @@
+# description: The mdb server accepts meassurements from ofthalmic instruments and stores theese i a directorystructure based on 
+# the cpr included in the data.
+service oftdevproxy
+{
+        disable         = no
+        port            = 10304
+        socket_type     = stream
+        wait            = no
+        user            = pracro
+        group           = pracro
+        server          = /usr/bin/oftdevproxy 
+#        log_on_failure  += USERID
+#        cps             = 1000 1
+}

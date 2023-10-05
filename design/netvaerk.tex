@@ -1,0 +1,28 @@
+\chapter{Netværk}
+Soekrisboksene er koblet op mod dataserveren over det normal
+netværk, men på sit eget net og således isoleret fra
+produktionsnettet.
+
+Dette kan gøres ved at sætte to netkort i dataserveren, som således
+kan modtage apparatdata på det ene og svare på forespørgsler på det
+andet.
+
+Formålet med at separere nettene er, at vi ikke behøver kryptere eller
+på anden vis beskytte de data, som sendes fra apparaterne til
+dataserveren. Disse data kan ellers betegnes som følsomme data, idet de ofte
+vil indeholde følsomme personinformationer knyttet sammen med et
+CPR-nummer.
+Ydermere er det en fordel i forhold til at vedligeholde Soekris
+boksene, at nettene er separerede, idet de ikke vil være under angreb
+fra computervira og lignende.
+
+Nettet skal selvfølgelig være et kabelnet og ikke et trådløst, idet hele
+pointen med at det er afskærmet og dermed sikkert ellers ville
+forsvinde.
+
+Al kommunikation identificeres på indhold og portnummer, og der skal
+således allokeres faste portnumre til samtlige kommunikationstyper i
+systemet.
+
+Da der ikke er tale om store datamængder (modsat f.eks MIaV) kan
+nettet bygges op af 100MBit enheder.

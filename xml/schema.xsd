@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:pentominos="http://www.aasimon.org/pentominos"
+        targetNamespace="http://www.aasimon.org/pentominos"
+        elementFormDefault="qualified">
+
+  <element name="artefact">
+    <complexType>
+      <sequence>
+        <element ref="pentominos:entry" minOccurs="1" maxOccurs="1"/>
+        <element ref="pentominos:data" minOccurs="0" maxOccurs="unbounded"/>
+        <element ref="pentominos:query" minOccurs="0" maxOccurs="unbounded"/>
+      </sequence>
+    </complexType>
+  </element>
+
+  <element name="entry">
+    <complexType>
+      <attribute name="cpr" type="string" use="required"/>
+      <attribute name="src_addr" type="string" use="required"/>
+      <attribute name="dst_addr" type="string" use="required"/>
+      <attribute name="timestamp" type="unsignedLong" use="required"/>
+      <attribute name="uid" type="string" use="required"/>
+    </complexType>
+  </element>
+
+  <element name="data">
+    <complexType>
+      <simpleContent>
+        <extension base="string">
+          <attribute name="device_type" type="string" use="required"/>
+          <attribute name="device_id" type="string" use="required"/>
+          <attribute name="timestamp" type="unsignedLong" use="required"/>
+          <attribute name="location" type="string" use="required"/>
+          <attribute name="encoding" type="string" use="required"/>
+        </extension>
+      </simpleContent>
+    </complexType>
+  </element>
+
+  <element name="query">
+    <complexType>
+      <attribute name="format" type="string" use="required"/>
+      <attribute name="device_id" type="string" use="required"/>
+      <attribute name="device_type" type="string" use="required"/>
+      <attribute name="filter" type="string" use="required"/>
+      <attribute name="location" type="string" use="required"/>
+    </complexType>
+  </element>
+
+</schema> 

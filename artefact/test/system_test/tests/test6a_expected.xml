@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<results>
+  <result id="0" errcode="0" errstring="Data Success" class="status"
+          deviceid="" devicetype="" timestamp="">
+  </result>
+  <result id="1" errcode="0" errstring="" class="lm600p"
+          deviceid="testid" devicetype="lm600p" timestamp="">
+    <group name="lm600p">
+      <group name="odxt">
+        <value name="sph">-6.00</value>
+        <value name="cyl">0.00</value>
+        <value name="axis">0</value>
+      </group>
+      <group name="osin">
+        <value name="sph">-6.00</value>
+        <value name="cyl">0.00</value>
+        <value name="axis">0</value>
+      </group>
+    </group>
+  </result>
+</results>

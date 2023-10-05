@@ -1,0 +1,43 @@
+Summary: Pentominos Oftdev Proxy Server
+Name: oftdevproxy 
+Version: @VERSION@
+Release: 2 
+License: GPL+
+Group: Service 
+Source: artefact-%{version}.tar.gz
+URL: http://no.address
+BuildRoot: %{_topdir}/BUILD/%{name}-%{version}-%{release}
+Requires: libartefact xinetd
+
+%description
+%{summary}
+
+%prep
+#%setup -q
+rm -rf %{_builddir}/*
+tar zxvf %{_sourcedir}/%{SOURCEURL0}
+mv artefact-%{version}/* %{_builddir}
+
+%build
+./configure --prefix= --exec-prefix=/usr --with-debug --with-oftdevproxy
+make
+
+%install
+%make_install
+#rm -r %{buildroot}/share
+#mv %{buildroot}/etc/init.d/pxregd.in %{buildroot}/etc/init.d/pxregd
+rm -rf %{buildroot}/include/
+rm -rf %{buildroot}/usr/lib/
+
+%files
+/usr/bin/oftdevproxy
+/etc/xinetd.d/oftdevproxy
+
+%post
+echo "=================================================================="
+echo ""
+echo "Check URL for configuration guide"
+echo ""
+echo "=================================================================="
+
+%changelog

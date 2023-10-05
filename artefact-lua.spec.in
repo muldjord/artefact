@@ -1,0 +1,31 @@
+Summary: Pentominos Artefact Data Server Lua Files
+Name: artefact-lua 
+Version: @VERSION@
+Release: 1
+License: GPL+
+Group: Scripts 
+Source: artefact-%{version}.tar.gz
+URL: http://no-address
+BuildRoot: %{_topdir}/BUILD/%{name}-%{version}-%{release}
+
+%description
+%{summary}
+
+%prep
+rm -rf %{_builddir}/*
+tar zxvf %{_sourcedir}/%{SOURCEURL0}
+mv artefact-%{version}/* %{_builddir}
+
+%build
+./configure --prefix= --exec-prefix=/usr --with-lua
+make
+
+%install
+#mv %{_builddir}/lua %{_builddir}/artefact-lua
+%make_install
+
+
+%files
+/usr/share/artefact/
+
+%changelog

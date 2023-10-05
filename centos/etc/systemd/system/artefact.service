@@ -1,0 +1,23 @@
+[Unit]
+Description=artefact
+Requires=postgresql.service
+After=postgresql.service
+StartLimitBurst=5
+StartLimitIntervalSec=20
+
+[Service]
+Type=forking
+KillMode=process
+KillSignal=SIGINT
+Restart=on-failure
+RestartSec=2
+User=pracro
+ExecStart=/home/pracro/bin/artefact --lua-basedir /home/pracro/artefact_data/lua --config /home/pracro/etc/artefact.conf -D +all --logfile /home/pracro/artefact.log
+# If a pid file is required for some reason, you need to use the following instead
+#User=root
+#PIDFile=/var/run/artefact.pid
+#ExecStart=/home/pracro/bin/artefact --pidfile /var/run/artefact.pid --lua-basedir /home/pracro/artefact_data/lua --config /home/pracro/etc/artefact.conf -D +all --logfile /home/pracro/artefact.log
+
+[Install]
+WantedBy=multi-user.target
+

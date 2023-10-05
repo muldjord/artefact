@@ -1,0 +1,110 @@
+#!/bin/bash
+#
+# chkconfig: - 65 34
+# description: Start Artefact Server
+
+### BEGIN INIT INFO
+# Provides: artefact 
+# Required-Start: $network
+# Should-Start: $syslog $named
+# Short-Description: start artefact server
+# Description: starts the artefact server
+### END INIT INFO
+
+# Source function library.
+. /etc/init.d/functions
+
+# Source networking configuration.
+. /etc/sysconfig/network
+
+prog=artefact
+lockfile="@prefix@/var/lock/subsys/$prog"
+_CONF="@prefix@/etc/artefact/artefact.conf"
+_BIN="@prefix@/usr/bin/$prog"
+_LOG="@prefix@/var/log/$prog.log"
+_PID="@prefix@/var/run/$prog.pid"
+
+start() {
+        [ "$EUID" != "0" ] && exit 4
+        [ "$NETWORKING" = "no" ] && exit 1
+        [ -x "$_BIN" ] || exit 5
+
+        echo -n $"$prog: Starting artefact server: "
+
+        if [ -f $lockfile ]
+        then
+                echo -n "Already started"
+                failure
+                echo
+                return 4
+        fi
+
+        export LD_LIBRARY_PATH=$_PREFIX/lib
+        $_BIN --pidfile ${_PID} --config ${_CONF} -D +all --logfile ${_LOG} 
+        RETVAL=$?
+        [ $RETVAL -eq 0 ] && success || failure
+        echo
+        if [ $RETVAL -eq 0 ]; then
+            touch $lockfile
+        fi
+        return $RETVAL
+}
+
+stop() {
+        echo -n $"$prog: Stopping artefact server: "
+        if [ ! -f $lockfile ]
+        then
+                echo -n "Not started"
+                failure
+                echo
+                exit 4
+        fi
+        [ "$EUID" != "0" ] && exit 4
+        kill -s INT $(cat ${_PID})
+        RETVAL=$?
+        if [ $RETVAL -eq 0 ]
+        then
+                rm -f $lockfile
+                success
+        else
+                failure
+        fi
+        echo
+        return $RETVAL
+}
+
+rh_status() {
+        status -p $_PID artefact
+}
+
+rh_status_q() {
+        rh_status >/dev/null 2>&1
+}
+
+# See how we were called.
+case "$1" in
+  start)
+	rh_status_q && exit 0
+        start
+        ;;
+  stop)
+	if ! rh_status_q; then
+		rm -f $lockfile
+        	exit 0
+        fi
+        stop
+        ;;
+  status)
+  [ -f $lockfile ] || return 3
+  [ -f ${_PID} ] || return 3
+  status -p ${_PID} artefact
+        ;;
+  restart|force-reload)
+        stop
+        start
+        ;;
+  *)
+        echo $"Usage: $0 {start|stop|status|restart|force-reload}"
+        exit 2
+esac
+

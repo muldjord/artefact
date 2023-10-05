@@ -1,0 +1,32 @@
+Use UTF-8 in *ALL* XML files!
+
+Use XMLUni::.... constants instead of strings in setFeature and setProperty.
+
+All logging must be done from the readBytes call.
+
+The parser should be reimplemented using the DefaultHandler interface,
+instead of the ContentHandler and ErrorHandler interfaces.
+
+Thwe parse call shall be rewritten to make it a one call parse
+(not using parseFirst/parseNext), this should make it use less memory.
+
+Look at how the file parser is implemented, if possible inherit from MemBufFile whatnot,
+to make it use constant buffer size.
+
+Enable/disable the validation as data nodes are encountered.
+
+Make a data node wrapper node and enable/disable validation on it, if the above doesn't work.
+
+
+
+
+
+ALTERNATIVE SOLUTION:
+
+Read from stream, and parse header.
+
+When done parsing header, stop parsing, and create logfile.
+
+Dump entire stream to disk.
+
+Read xml from file, and parse it in a second pass.

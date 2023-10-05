@@ -1,0 +1,50 @@
+\chapter{Forhindring af fejl}
+%Da det er af meget stor vigtighed, at der ikke opstår fejl i
+%dataoverførsler, skal der indføres en række procedurer for at
+%forhindre at dette sker.\\
+Der kan i udgangspunkt ske tre typer fejl: hardwarefejl, softwarefejl
+og menneskelige fejl.\\
+Hardwarefejl kan f.eks være en computer der er tilsluttet systemet
+som brænder sammen under en transaktion. Denne type fejl kan i
+udgangspunkt ikke forhindres, men man kan forsøge at sikre, at de ikke
+vil forårsage nedetid og ej heller vil korrumpere eksisterende data.
+Systemerne skal altså designes sådan at de kan håndtere afbrudte
+forbindelser, uden at det påvirker den videre afvikling.\\
+Softwarefejl kan forekomme i samtlige moduler, og for at minimere
+risikoen for, at de vil propagere opad i systemerne, skal al data
+valideres på samtlige trin, når det modtages. Ved en softwarefejl vil
+der således sjældent ske andet, end at noget data bliver smidt væk på
+\'{e}t niveau, hvilket vil resultere i en fejlbesked i en logfil og en
+fejlbeskrivelse som returværdi til afsenderen af dataene.
+Samtidig vil alle processer være designet til at håndtere \'{e}n
+transaktion, hvorefter den vil standse. Dette betyder, at skulle en fejl
+forekomme under en transaktion, er det kun den enkelte transaktion, som
+bliver påvirket, og systemet vil stadig være i stand til at behandle
+yderligere data.\\
+De menneskelige fejl er langt sværere at opdage og håndtere. Hvis en bruger
+f.eks. glemmer at indtaste patientens CPR-nummer, og der indlæses data,
+vil dataene blive lagret under det sidst indtastede CPR-nummer.\\
+Man kan fange en del af fejlene ved at validere al produceret
+data. \fixme{Under hvilke omstændigheder - uddyb}
+Hvis et CPR-nummer f.eks er over 1/2 time gammelt kan man måske
+antage at det er fra en tidligere patient, og dermed få applikationen
+til at melde fejl.\\
+For at undgå, at der sker mange af de typer fejl, skal interfacet laves
+sådan, at det er intuitivt nemt at forstå og frem for alt informerende og
+bekræftigende i de handlinger, der er foretaget, så brugerne kan se, at
+det, de har gjort, har haft den ønskede effekt. Eksempelvis skal der ved
+indtastning af et CPR-nummer vises patientens navn på et display, så
+brugeren kan kontrollere at det rent faktisk er den patient som,
+vedkommende har foran sig.\\
+Eftersom det ikke er påtænkt at montere skærme overalt, hvor systemet
+findes \fixme{uddyb årsagerne} blandt andet af økonomiske årsager kan man med fordel bruge
+et 4-liniers tekstdisplay, som det, der er på prøve på OP3, samt et
+computerstyret lysdiodepanel med farvede lysdioder til status beskeder,
+hvor rød f.eks. kan betyde fejl, gul kan betyde behandler data og grøn kan
+betyde transaktionen udført successfuldt.\\
+Hvis uheldet på trods af alle disse foranstaltninger alligevel er ude,
+skal der udvilkes et omfattende administrationssystem, som af en
+autoriseret medarbejder, kan bruges til at rette op på alle tænkelige
+fejl, lige fra ændringer af CPR-registreringer til flytning eller
+sletning af filer.
+\fixme{Noget om dataformater og deres muligheder for recovery.}

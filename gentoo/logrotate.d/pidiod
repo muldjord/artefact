@@ -1,0 +1,15 @@
+# -*- shell-script -*-
+# Copyright 2010 Bent Bisballe Nyeng
+# Distributed under the terms of the GNU General Public License v2
+
+/var/log/pidiod.log {
+    weekly
+    #create 660 root root
+    notifempty
+    size 5M
+    sharedscripts
+    missingok
+    postrotate
+    /bin/kill -s SIGHUP `cat /var/run/pidiod.pid`
+    endscript
+}

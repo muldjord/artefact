@@ -1,0 +1,4 @@
+INPUT="insertonelm600p.xml"
+EXPECT="test1_expected.xml"
+FILTER="cat"
+TITLE="Insert one data entry"

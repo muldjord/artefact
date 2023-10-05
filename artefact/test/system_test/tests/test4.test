@@ -1,0 +1,4 @@
+INPUT="querymany.xml"
+EXPECT="test4_expected.xml"
+FILTER="cat"
+TITLE="Query on multiple data entries"

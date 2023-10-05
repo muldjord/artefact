@@ -1,0 +1,30 @@
+<artefact xmlns="http://www.aasimon.org/pentominos"
+          xmlns:pentominos="http://www.aasimon.org/pentominos"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://www.aasimon.org/pentominos schema.xsd">
+  <pentominos:entry patientid="0000000000"
+                    pretend="false"
+                    timestamp="1385723205"/>
+  <pentominos:data id="0"
+                   operator=""
+                   device_type="barcode"
+                   device_id="CHANGE_ME"
+                   timestamp="1385723203"
+                   location="CHANGE_ME"
+                   encoding="base64">
+MDYzNjI1NDE0WDE1NTA0Mjk1WDAyMDg=
+  </pentominos:data>
+  <pentominos:data id="1"
+                   operator=""
+                   device_type="barcode"
+                   device_id="CHANGE_ME"
+                   timestamp="1385723281"
+                   location="CHANGE_ME"
+                   encoding="base64">
+K0g1MzBTQTYwQVQxMjBQMTYKKzExMjQzMTE0OTU3MDA2NjU=
+  </pentominos:data>
+  <pentominos:query id="2"
+                    class="barcode"
+                    filter="latest"/>
+</artefact>
+

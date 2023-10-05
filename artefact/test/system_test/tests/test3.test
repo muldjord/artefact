@@ -1,0 +1,4 @@
+INPUT="insertmany.xml"
+EXPECT="test3_expected.xml"
+FILTER="cat"
+TITLE="Insert multiple data entries"

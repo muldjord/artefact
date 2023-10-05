@@ -1,0 +1,42 @@
+#!/sbin/runscript
+# -*- shell-script -*-
+# Copyright 2010 Bent Bisballe Nyeng (deva@aasimon.org)
+# Distributed under the terms of the GNU General Public License v2
+
+_PROG="feed"
+_PREFIX="@prefix@"
+_CONF="${_PREFIX}/etc/feed/feed.conf"
+_BIN="${_PREFIX}/bin/feed"
+_LOG="/var/log/feed.log"
+
+depend() {
+    need net
+#    provide feed
+}
+
+checkconfig() {
+    if [ ! -f ${_CONF} ] ; then
+	eerror "Please create ${_CONF}"
+	return 1
+    fi
+    return 0
+}
+
+start() {
+    checkconfig || return $?
+    
+    ebegin "Starting ${_PROG}"
+    start-stop-daemon --start --exec ${_BIN} \
+	--pidfile /var/run/${_PROG}.pid \
+	-- --pidfile /var/run/${_PROG}.pid --config ${_CONF} \
+	-D +fixme,+err,+warn,+info --logfile ${_LOG}
+    eend $? "Failed to start ${_PROG}"
+}
+
+stop() {
+    ebegin "Stopping ${_PROG}"
+    start-stop-daemon --stop -s INT \
+	--pidfile /var/run/${_PROG}.pid \
+	--exec ${_BIN}
+    eend $? "Failed to stop ${_PROG}"
+}

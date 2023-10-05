@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<artefact xmlns="http://www.aasimon.org/pentominos"
+          xmlns:pentominos="http://www.aasimon.org/pentominos"
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:schemaLocation="http://www.aasimon.org/pentominos schema.xsd">
+  <pentominos:entry cpr="0000000000"
+                    src_addr="192.168.0.10"
+                    dst_addr="192.168.0.1"
+                    timestamp="1234567890"
+                    uid="876a6e5284f84da639"/>
+
+  <pentominos:data device_type="lensmeter" 
+                   device_id="lensmeter"
+                   timestamp="1234567890"
+                   location="op3"
+                   encoding="base64">
+    kjAhDdsf=
+  </pentominos:data>
+
+  <pentominos:query format="xml"
+                    device_id="lensmeter"
+                    device_type="lensmeter"
+                    filter="latest"
+                    location="all"/>
+</artefact>
