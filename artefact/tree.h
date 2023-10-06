@@ -31,6 +31,7 @@
 #include <string>
 #include <stdio.h>
 #include <status.h>
+#include <ctime>
 
 typedef unsigned int id_t;
 

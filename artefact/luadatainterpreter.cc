@@ -30,6 +30,7 @@
 
 #include <luautil.h>
 #include <config.h>
+#include <ctime>
 
 #include "luapostgresql.h"
 #include "luatcpsocket.h"
